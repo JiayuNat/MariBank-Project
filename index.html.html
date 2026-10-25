@@ -1,0 +1,660 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Mari Goals Mockup</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: flow steps on the left, phone in the centre, pillar notes on the right; stacks on narrow screens */
+:root{
+  --page:#F6F2EF; --ink:#211A17; --muted:#6E625C; --panel:#FFFFFF; --line:#E8DFD9;
+  --chip:#FFE6DA; --chip-ink:#A93A12;
+  /* app palette: MariBank orange with warm greys, kept light in both page themes */
+  --m-orange:#FF6414; --m-orange2:#FF8A3D; --m-deep:#D94E06; --m-tint:#FFE8D9; --m-tint2:#FFF5EE;
+  --m-promo:#FFE3B8; --m-promo-ink:#8A4B00;
+  --m-bg:#F5F5F7; --m-card:#FFFFFF; --m-ink:#1F1D1C; --m-sub:#7D7874; --m-line:#ECE9E7; --m-grey:#4A4644;
+  --f-eq:#D94E06; --f-gold:#FFB27A; --f-inc:#8C5A3C; --f-sp:#4A4644;
+  --display:"Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --ui:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --page:#17120F; --ink:#F3ECE7; --muted:#B3A59D; --panel:#221B17; --line:#3B302A; --chip:#4A2416; --chip-ink:#FFB394; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --page:#17120F; --ink:#F3ECE7; --muted:#B3A59D; --panel:#221B17; --line:#3B302A; --chip:#4A2416; --chip-ink:#FFB394; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:28px}
+header h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,40px);line-height:1.05;margin:0;text-wrap:balance}
+header p{margin:8px 0 0;color:var(--muted);max-width:64ch}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--m-orange);margin-bottom:6px}
+.stage{display:grid;grid-template-columns:230px 360px minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:1000px){.stage{grid-template-columns:1fr;justify-items:center}.picker,.notes{width:100%;max-width:480px}}
+.picker{display:grid;gap:4px}
+.picker .ph{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 12px 2px}
+.picker button{all:unset;cursor:pointer;display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:center;padding:8px 12px;border-radius:12px;color:var(--ink)}
+.picker button:hover{background:var(--panel)}
+.picker button:focus-visible{outline:2px solid var(--m-orange);outline-offset:2px}
+.picker button[aria-selected="true"]{background:var(--panel);box-shadow:0 0 0 1px var(--line)}
+.picker .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;background:var(--line);color:var(--ink);font-variant-numeric:tabular-nums}
+.picker button[aria-selected="true"] .n{background:var(--m-orange);color:#fff}
+.picker .t{font-weight:600;font-size:14px;line-height:1.25}
+@media (max-width:1000px){.picker{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.picker .ph{grid-column:1/-1}}
+/* phone */
+.phone{width:340px;max-width:100%;border-radius:44px;background:#121212;padding:10px;box-shadow:0 30px 60px -20px rgba(60,20,0,.35)}
+.screen{border-radius:36px;overflow:hidden;background:#fff;height:710px;display:flex;flex-direction:column;color:var(--m-ink);font-family:var(--ui);font-size:13px}
+.screen.grey{background:var(--m-bg)}
+.sbar{display:flex;justify-content:space-between;padding:12px 24px 2px;font-weight:700;font-size:12px;flex:none}
+.nav{display:grid;grid-template-columns:32px 1fr 32px;align-items:center;padding:4px 10px 6px;flex:none}
+.nav .ttl{text-align:center;font-weight:700;font-size:14px}
+.back{all:unset;cursor:pointer;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;font-size:22px;line-height:1}
+.back:hover{background:rgba(0,0,0,.06)}
+.back:focus-visible{outline:2px solid var(--m-orange)}
+.prog{display:flex;align-items:center;gap:6px;padding:4px 16px 12px;flex:none}
+.prog span{flex:1;height:6px;border-radius:999px;background:#E9E7E5}
+.prog span.on{background:var(--m-orange)}
+.prog em{font-style:normal;font-size:10.5px;color:var(--m-sub);margin-left:6px;white-space:nowrap}
+.body{flex:1;overflow-y:auto;padding:4px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.body > *{flex-shrink:0}
+.foot{padding:10px 16px 18px;display:grid;gap:8px;flex:none}
+.foot .two{display:grid;grid-template-columns:1fr 1.6fr;gap:10px}
+.ghead{display:flex;align-items:center;gap:14px;padding:4px 0}
+.gic{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 50% 60%,#FFE8D9 0%,#FFF5EE 70%);display:grid;place-items:center;flex:none}
+.gname{font-family:var(--ui);font-weight:700;font-size:21px;line-height:1.15;letter-spacing:-.01em}
+.q{font-weight:700;font-size:16px;margin-top:6px}
+.card{background:var(--m-card);border-radius:14px;padding:14px;border:1px solid var(--m-line)}
+.screen.grey .card{border-color:transparent;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.lbl{font-size:11px;color:var(--m-sub);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.big{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.row.l{justify-content:flex-start}
+.sub{color:var(--m-sub);font-size:12px}
+.num{font-variant-numeric:tabular-nums}
+.link{all:unset;cursor:pointer;color:var(--m-orange);font-weight:600}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:block;text-align:center;background:var(--m-orange);color:#fff;font-weight:600;border-radius:12px;padding:14px;font-size:15px}
+.btn.ghost{background:#fff;color:var(--m-ink);box-shadow:inset 0 0 0 1px #D9D4D0}
+.btn.text{background:transparent;color:var(--m-sub);padding:4px}
+.btn:focus-visible,.link:focus-visible{outline:2px solid var(--m-deep);outline-offset:2px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.info{display:flex;gap:12px;align-items:center;background:var(--m-tint2);border-radius:12px;padding:13px 14px;font-size:12.5px;color:var(--m-grey);line-height:1.45}
+.info i{font-style:normal;flex:none;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--m-grey);color:var(--m-grey);display:grid;place-items:center;font-size:11px;font-weight:700}
+.info .ic{flex:none;color:var(--m-deep);display:grid}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;background:var(--m-tint);color:var(--m-deep)}
+.pill.grey{background:#EDEBEA;color:var(--m-grey)}
+.bar{height:10px;border-radius:999px;background:var(--m-line);overflow:hidden;display:flex}
+.bar span{display:block;height:100%}
+.avatar{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:11px;color:#fff;flex:none}
+.ryan{background:var(--m-orange)}.jas{background:var(--m-grey)}
+.list{display:grid;gap:10px}
+.field{display:grid;gap:4px}
+.field input{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--m-line);background:#fff;color:var(--m-ink);width:100%}
+.field input:focus,.amtbox input:focus{outline:2px solid var(--m-orange);border-color:transparent}
+.goals{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.gchip{all:unset;cursor:pointer;white-space:nowrap;padding:7px 12px;border-radius:999px;border:1px solid var(--m-line);font-size:12px;font-weight:600;background:#fff}
+.gchip[aria-pressed="true"]{background:var(--m-tint);border-color:var(--m-orange);color:var(--m-deep)}
+.gchip:focus-visible{outline:2px solid var(--m-deep)}
+.amtbox{border:1px solid #F0EEEC;border-radius:16px;padding:22px 16px;display:flex;align-items:baseline;justify-content:center;gap:8px;box-shadow:0 4px 16px rgba(30,20,10,.06);background:#fff;cursor:text}
+.amtbox span{font-weight:700;font-size:22px}
+.amtbox input{all:unset;font-family:var(--ui);font-weight:800;font-size:42px;letter-spacing:-.02em;text-align:left;font-variant-numeric:tabular-nums;border-radius:8px}
+.rng{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;margin:10px 0;background:linear-gradient(to right,var(--m-orange) 0 var(--p,50%),#E7E4E2 var(--p,50%) 100%);outline-offset:6px}
+.rng::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--m-orange);box-shadow:0 1px 4px rgba(0,0,0,.15);cursor:pointer}
+.rng::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--m-orange);box-shadow:0 1px 4px rgba(0,0,0,.15);cursor:pointer}
+.rng:focus-visible{outline:2px solid var(--m-deep)}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.quick button{all:unset;cursor:pointer;text-align:center;padding:13px 8px;border-radius:12px;background:#F3F2F1;font-weight:600;font-size:14px;border:1.5px solid transparent}
+.quick button[aria-pressed="true"]{background:var(--m-tint2);border-color:var(--m-orange);color:var(--m-deep)}
+.quick button:focus-visible{outline:2px solid var(--m-deep)}
+.datecard{background:#fff;border:1px solid #F0EEEC;border-radius:16px;box-shadow:0 4px 16px rgba(30,20,10,.06);padding:12px}
+.datehead{display:flex;align-items:center;gap:14px;padding:4px 4px 12px;font-weight:600;font-size:19px}
+.calic{width:42px;height:42px;border-radius:12px;background:var(--m-tint2);display:grid;place-items:center;color:var(--m-deep)}
+.wheel{position:relative;display:grid;grid-template-columns:1fr 1fr;background:#FAFAF9;border-radius:12px;padding:6px 0}
+.wheel::before{content:"";position:absolute;left:6px;right:6px;top:50%;height:36px;transform:translateY(-50%);background:#EFEDEB;border-radius:10px}
+.col{position:relative;display:grid}
+.col button{all:unset;cursor:pointer;text-align:center;height:30px;line-height:30px;font-size:14px;color:var(--m-ink)}
+.col button.f2{opacity:.22}.col button.f1{opacity:.45}
+.col button.sel{height:36px;line-height:36px;font-size:17px;font-weight:600;opacity:1}
+.col button:focus-visible{outline:2px solid var(--m-deep);border-radius:8px}
+.col span{height:30px}
+.rcard{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:44px 1fr 24px;gap:12px;align-items:center;padding:14px 12px;border-radius:14px;border:1.5px solid #EDEBE9;background:#fff;box-shadow:0 2px 8px rgba(30,20,10,.03)}
+.rcard[aria-pressed="true"]{border-color:var(--m-orange);background:var(--m-tint2)}
+.rcard:focus-visible{outline:2px solid var(--m-deep)}
+.rcard .ri{width:44px;height:44px;border-radius:12px;background:var(--m-tint2);display:grid;place-items:center}
+.rcard b{display:block;font-size:14px;margin-bottom:2px}
+.rcard .sub{line-height:1.35;display:block}
+.radio{width:22px;height:22px;border-radius:50%;border:2px solid #CFC9C5;display:grid;place-items:center}
+.rcard[aria-pressed="true"] .radio{border-color:var(--m-orange)}
+.rcard[aria-pressed="true"] .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--m-orange)}
+.switch{all:unset;cursor:pointer;width:44px;height:26px;border-radius:999px;background:#D6D2CF;position:relative;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.switch[aria-checked="true"]{background:var(--m-orange)}
+.switch[aria-checked="true"]::after{left:21px}
+.switch:focus-visible{outline:2px solid var(--m-deep);outline-offset:2px}
+.switch[disabled]{opacity:.4;cursor:not-allowed}
+.slider{position:relative;padding-top:20px}
+.marker{position:absolute;top:0;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--m-deep);white-space:nowrap}
+.marker::after{content:"";display:block;width:2px;height:8px;background:var(--m-deep);margin:2px auto 0}
+.phase{display:grid;gap:6px;height:120px}
+.phase div{display:flex;flex-direction:column;justify-content:flex-end;border-radius:8px;overflow:hidden;background:var(--m-line)}
+.phase span{display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff;cursor:default;min-height:0}
+.phase span.c-gold{color:#5A3A20}
+.phase{height:150px!important}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.c-eq{background:var(--f-eq)}.c-gold{background:var(--f-gold)}.c-inc{background:var(--f-inc)}.c-sp{background:var(--f-sp)}
+.check{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{accent-color:var(--m-orange);width:18px;height:18px;margin-top:1px;flex:none}
+.note{font-size:11px;color:var(--m-sub);line-height:1.45}
+.sumcard{background:#fff;border:1px solid #F0EEEC;border-radius:16px;box-shadow:0 4px 16px rgba(30,20,10,.06);padding:14px 16px}
+.sumrow{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:7px 0;font-size:13px}
+.sumrow .k{color:var(--m-sub)}
+.sumrow .v{font-weight:700;font-size:15px;text-align:right}
+.sumrow svg{color:var(--m-sub)}
+.suggest{background:var(--m-tint2);border-radius:16px;overflow:hidden}
+.suggest .top{padding:14px 16px 12px}
+.suggest .amt{font-family:var(--ui);font-weight:800;font-size:30px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-left:38px}
+.suggest .amt small{font-size:20px;font-weight:700}
+.suggest .bot{background:#fff;margin:0 8px 8px;border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--m-grey)}
+.grow{background:var(--m-tint2);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:14px;font-size:13.5px;color:var(--m-grey)}
+.ttlbig{font-weight:800;font-size:24px;letter-spacing:-.02em;line-height:1.15}
+.toast{background:var(--m-ink);color:#fff;border-radius:12px;padding:10px 12px;font-size:12px}
+.hero{background:linear-gradient(160deg,var(--m-orange) 0%,var(--m-orange2) 100%);color:#fff;flex:none}
+.hero .back:hover{background:rgba(255,255,255,.18)}
+/* home */
+.h-top{display:flex;align-items:center;gap:10px;padding:6px 16px 12px}
+.h-ava{width:40px;height:40px;border-radius:50%;background:var(--m-tint);color:var(--m-deep);display:grid;place-items:center;font-weight:800}
+.h-name{font-weight:600;font-size:15px;line-height:1.2}
+.h-bell{margin-left:auto;position:relative;color:var(--m-orange)}
+.h-bell b{position:absolute;top:-6px;right:-8px;background:#E5484D;color:#fff;font-size:9px;border-radius:999px;padding:1px 5px}
+.h-bal{background:var(--m-orange);color:#fff;border-radius:14px;padding:14px;margin:0 14px;position:relative;overflow:hidden}
+.h-bal .eye{opacity:.85;font-size:12px}
+.h-amt{font-weight:600;font-size:20px;margin-top:6px}
+.h-bal .ta{position:absolute;top:12px;right:0;background:var(--m-deep);border-radius:999px 0 0 999px;padding:4px 10px;font-size:11px;font-weight:500}
+.h-bal .split{display:grid;grid-template-columns:1fr 1fr;gap:8px;border-top:1px solid rgba(255,255,255,.25);margin-top:12px;padding-top:10px;line-height:1.4}
+.h-bal .k{opacity:.85;font-size:11px}
+.h-bal .v{font-weight:600;font-size:14px}
+.h-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.h-tile{all:unset;box-sizing:border-box;cursor:pointer;background:#fff;border-radius:12px;padding:14px 10px 12px;min-width:0;position:relative;display:grid;gap:4px;align-content:start}
+.h-tile:focus-visible{outline:2px solid var(--m-deep)}
+.promo{position:absolute;top:-6px;right:8px;background:var(--m-promo);color:var(--m-promo-ink);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+.h-title{font-weight:600;font-size:12.5px;white-space:nowrap}
+.h-acts{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;font-size:10px;font-weight:500}
+.h-acts i{font-style:normal;display:block;font-size:18px;color:var(--m-orange);margin-bottom:4px}
+.h-banner{all:unset;box-sizing:border-box;cursor:pointer;display:block;border-radius:14px;padding:14px;background:linear-gradient(120deg,#FFF6E6 0%,#FFE8D2 100%);position:relative;overflow:hidden}
+.h-banner:focus-visible{outline:2px solid var(--m-deep)}
+.h-banner .tagline{display:inline-block;background:var(--m-promo);color:var(--m-promo-ink);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
+.h-banner .hl{font-family:var(--display);font-weight:800;font-size:18px;line-height:1.15;margin-top:6px;max-width:68%}
+.h-banner .hl em{font-style:normal;color:var(--m-orange)}
+.h-banner .art{position:absolute;right:8px;bottom:6px}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:8px}
+.dots span{width:12px;height:3px;border-radius:2px;background:#E0DCD9}.dots span.on{background:var(--m-orange)}
+.tabbar{display:grid;grid-template-columns:repeat(5,1fr);align-items:end;padding:6px 4px 12px;background:#fff;border-top:1px solid var(--m-line);font-size:10px;color:var(--m-sub);text-align:center;flex:none}
+.tabbar span{display:grid;gap:2px;justify-items:center}
+.tabbar i{font-style:normal;font-size:17px;line-height:1}
+.tabbar .on{color:var(--m-orange);font-weight:700}
+.tabbar .scan i{width:46px;height:46px;border-radius:50%;background:var(--m-orange);color:#fff;display:grid;place-items:center;margin-top:-26px;border:4px solid #fff;font-size:18px}
+/* notes */
+.notes{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:16px;min-width:0}
+.notes h2{font-family:var(--display);font-size:24px;line-height:1.15;margin:0;text-wrap:balance}
+.notes p{margin:0;max-width:60ch}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--chip);color:var(--chip-ink)}
+.notes dl{margin:0;display:grid;gap:12px}
+.notes dt{font-weight:700;font-size:13px}
+.notes dd{margin:2px 0 0;color:var(--muted);font-size:14px}
+.notes .tip{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+footer{color:var(--muted);font-size:12px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">BF2223 · Mari Invest concept mockup</div>
+    <h1>Mari Goals</h1>
+    <p>A goal based investing hub inside the MariBank app. Its first application, Key Countdown, helps couples build their BTO renovation fund. Follow the screens in order the way Ryan would; every back button returns to the previous screen.</p>
+  </header>
+  <div class="stage">
+    <nav class="picker" role="tablist" aria-label="Mockup screens" id="picker"></nav>
+    <div class="phone"><div class="screen" id="screen"></div></div>
+    <aside class="notes" id="notes" aria-live="polite"></aside>
+  </div>
+  <footer>Concept mockup for a university project. Not affiliated with or endorsed by MariBank. Figures use the report persona (Ryan and Jasmine) and are illustrative only. Fund returns are not guaranteed and Mari Invest products are not insured by SDIC.</footer>
+</div>
+
+<script>
+(function(){
+const NOW_Y = 2026, NOW_M = 10;
+const MN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const MNL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const PRESETS = {
+  bto:{name:"My First Home", amt:55000, y:2030, m:3, partner:true, chip:"BTO renovation"},
+  wed:{name:"Our Wedding", amt:30000, y:2027, m:12, partner:true, chip:"Wedding"},
+  car:{name:"Our Car", amt:40000, y:2029, m:6, partner:true, chip:"Car"},
+  baby:{name:"Baby on the Way", amt:20000, y:2029, m:1, partner:true, chip:"First child"},
+  custom:{name:"", amt:10000, y:2028, m:6, partner:false, chip:"+ Custom"}
+};
+const RISK = [
+  {k:"steady", t:"Keep it steady", d:"Lower ups and downs, more predictable growth.", g:20},
+  {k:"balanced", t:"Balanced", d:"A good mix of stability and growth.", g:40},
+  {k:"grow", t:"Grow more", d:"Comfortable with bigger ups and downs for higher growth potential.", g:60}
+];
+const S = { i:0, hist:[], goal:"bto", gname:"My First Home", amt:55000, y:2030, m:3, partner:true,
+  risk:1, income:false, cka:false, paysrc:"detected", net:4160, payday:25, pct:11, start:12000, auto:true,
+  boost:true, cA:false, cB:false, cC:false, paused:false, reason:null, endChoice:null, ended:false };
+const JAS_NET=3680, JAS_PCT=9, JAS_START=9000, BOOST=18;
+const fmt = n => "S$" + Math.round(n).toLocaleString("en-SG");
+const months = () => Math.max(1,(S.y-NOW_Y)*12 + (S.m-NOW_M));
+const dateLabel = () => MNL[S.m-1]+" "+S.y;
+const shortDate = () => MN[S.m-1]+" "+S.y;
+const ryanAmt = () => Math.round(S.net*S.pct/100);
+const jasAmt = () => S.partner ? Math.round(JAS_NET*JAS_PCT/100) : 0;
+const startTot = () => S.start + (S.partner?JAS_START:0);
+const growth = () => months() <= 18 ? 0 : (months() < 30 ? Math.round(RISK[S.risk].g*0.6/5)*5 : RISK[S.risk].g);
+function mix(g){
+  if (S.income && S.cka){ const inc=Math.round(g*0.25), eq=Math.round(g*0.5), gold=g-eq-inc; return {eq,gold,inc,sp:100-g}; }
+  const eq=Math.round(g*0.65); return {eq, gold:g-eq, inc:0, sp:100-g};
+}
+function phases(){
+  const g = growth(), mo = months(), pre = mo-18;
+  const last = {label:`${Math.min(mo,18)} to 0 mo`, ...mix(0)};
+  if (pre <= 0) return [last];
+  const steps = Math.min(3, pre), size = Math.ceil(pre/steps), lv=[1,0.6,0.3], out=[];
+  let hi = mo;
+  for (let k=0;k<steps && hi>18;k++){ const lo=Math.max(19,hi-size+1); out.push({label:`${hi} to ${lo} mo`, ...mix(Math.round(g*lv[k]/5)*5)}); hi=lo-1; }
+  return [...out,last];
+}
+const rate = () => (0.016 + growth()/100*0.045)/12;
+function projected(){
+  const monthly = (S.paused||!S.auto?0:ryanAmt()) + jasAmt() + (S.boost?BOOST:0);
+  let bal = startTot(); for(let k=0;k<months();k++) bal = bal*(1+rate()) + monthly; return bal;
+}
+function neededMonthly(){ // total monthly needed from everyone, with growth
+  const r=rate(), n=months(), fvStart=startTot()*Math.pow(1+r,n), ann = r>0 ? (Math.pow(1+r,n)-1)/r : n;
+  return Math.max(0,(S.amt - fvStart)/ann);
+}
+const ryanNeeded = () => Math.max(0, neededMonthly() - jasAmt() - (S.boost?BOOST:0));
+const neededPct = () => Math.max(1, Math.min(30, Math.ceil(ryanNeeded()/S.net*100)));
+
+/* small icons */
+const ICON = {
+  bto:`<svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 19 20 8l14 11" fill="none" stroke="#D94E06" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 17v15h20V17" fill="#fff" stroke="#D94E06" stroke-width="2.5"/><rect x="17" y="23" width="6" height="9" rx="1" fill="#FF6414"/><rect x="12.5" y="20" width="4" height="4" rx=".8" fill="#FFB27A"/><rect x="23.5" y="20" width="4" height="4" rx=".8" fill="#FFB27A"/></svg>`,
+  wed:`<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><circle cx="16" cy="23" r="9" fill="none" stroke="#D94E06" stroke-width="3"/><circle cx="25" cy="23" r="9" fill="none" stroke="#FF8A3D" stroke-width="3"/><path d="M14 9l2-3h4l2 3-4 4z" fill="#FF6414"/></svg>`,
+  car:`<svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 25l3-8a3 3 0 0 1 3-2h16a3 3 0 0 1 3 2l3 8v6H6z" fill="#FF6414"/><rect x="11" y="18" width="18" height="5" rx="1.5" fill="#FFE8D9"/><circle cx="12" cy="31" r="3.5" fill="#4A4644"/><circle cx="28" cy="31" r="3.5" fill="#4A4644"/></svg>`,
+  baby:`<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="21" r="12" fill="#FFB27A"/><circle cx="15.5" cy="20" r="1.6" fill="#4A4644"/><circle cx="24.5" cy="20" r="1.6" fill="#4A4644"/><path d="M16 25.5q4 3 8 0" fill="none" stroke="#4A4644" stroke-width="1.8" stroke-linecap="round"/><path d="M20 9q-3-3 0-5" fill="none" stroke="#D94E06" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  custom:`<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6l4 9 10 1-7.5 6.5L29 32l-9-5-9 5 2.5-9.5L6 16l10-1z" fill="#FF6414"/></svg>`,
+  steady:`<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11" stroke="#D94E06" stroke-width="2" stroke-linecap="round"/><path d="M12 13c0-4 3-6 7-6 0 4-3 6-7 6zM12 15c0-3-2-5-6-5 0 3 2 5 6 5z" fill="#FF6414"/></svg>`,
+  balanced:`<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#D94E06" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M7 20h10M5 7h14"/><path d="M5 7l-3 6h6zM19 7l-3 6h6z" fill="#FFE8D9"/></svg>`,
+  grow:`<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="14" width="3.5" height="6" rx="1" fill="#FFB27A"/><rect x="10" y="10" width="3.5" height="10" rx="1" fill="#FF8A3D"/><rect x="16" y="6" width="3.5" height="14" rx="1" fill="#D94E06"/><path d="M4 10l6-4 4 2 6-5" fill="none" stroke="#D94E06" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+  target:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>`,
+  cal:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>`,
+  chart:`<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="13" width="3.5" height="7" rx="1"/><rect x="10.25" y="9" width="3.5" height="11" rx="1"/><rect x="16.5" y="5" width="3.5" height="15" rx="1"/></svg>`,
+  people:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c3 0 5 2 5.5 5"/></svg>`,
+  coins:`<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="9" cy="17" rx="6" ry="2.5" fill="#D94E06"/><ellipse cx="9" cy="14" rx="6" ry="2.5" fill="#FF6414"/><ellipse cx="15" cy="10" rx="6" ry="2.5" fill="#FF8A3D"/><ellipse cx="15" cy="7" rx="6" ry="2.5" fill="#FFB27A"/></svg>`,
+  sync:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>`,
+  sprout:`<svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V12" stroke="#8C5A3C" stroke-width="2" stroke-linecap="round"/><path d="M12 13c0-4 3-6 7-6 0 4-3 6-7 6zM12 14c0-3-2-5-6-5 0 3 2 5 6 5z" fill="#FF6414"/><ellipse cx="12" cy="21" rx="5" ry="1.5" fill="#E8DFD9"/></svg>`
+};
+
+const sbar = () => `<div class="sbar"><span>9:41</span><span>5G ▮▮▮</span></div>`;
+const STEPS = 7;
+function nav(title, step){
+  const bk = `<button class="back" data-back aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>`;
+  return `${sbar()}<div class="nav">${bk}<div class="ttl">${title}</div><span></span></div>${step?`<div class="prog">${Array.from({length:STEPS},(_,k)=>`<span class="${k<step?"on":""}"></span>`).join("")}<em>Step ${step} of ${STEPS}</em></div>`:""}`;
+}
+const ghead = () => `<div class="ghead"><div class="gic">${bigIcon()}</div><div class="gname">${S.gname||"My goal"}</div></div>`;
+const info = (t,ic) => `<div class="info">${ic?`<span class="ic">${ic}</span>`:'<i>i</i>'}<span>${t}</span></div>`;
+const bigIcon = () => ICON[S.goal].replace(/width="\d+" height="\d+"/,'width="54" height="54"');
+const footBC = (label="Continue", extra="") => `<div class="foot"><div class="two"><button class="btn ghost" data-back>Back</button><button class="btn" data-next ${extra}>${label}</button></div></div>`;
+const PN = {s:"Simple", r:"Reliable", w:"Rewarding"};
+
+const SCREENS = [
+{ label:"Home", group:"Entry", pillars:["s"], grey:true,
+  title:"It starts on the screen they already open",
+  why:"Modelled on the real MariBank home screen. Ryan enters Mari Goals from the Mari Invest tile or the banner carousel, both of which already exist in the app, so nothing new clutters the interface.",
+  points:[["Simple","One tap from the home screen into goal based investing."],["Fits the brand","Uses MariBank's existing tiles and carousel rather than a new section, which keeps the clean layout."]],
+  tip:"Report link: Section 3.4 and Section 4.3 customer journey, discovery.",
+  render:()=>`
+  ${sbar()}
+  <div class="h-top"><div class="h-ava">RT</div><div><div class="h-name">Ryan Tan</div><div class="sub">Account No: •••• 2731</div></div><div class="h-bell" aria-label="Notifications"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a6 6 0 0 0-6 6v4l-2 3h16l-2-3V9a6 6 0 0 0-6-6zM10 19a2 2 0 0 0 4 0z"/></svg><b>3</b></div></div>
+  <div class="body" style="padding:0 0 12px">
+    <div class="h-bal">
+      <div class="eye">Total Deposit Balances</div>
+      <div class="h-amt num">SGD 15,240.18</div>
+      <span class="ta">Total Assets ›</span>
+      <div class="split">
+        <div><div class="k">Savings Account ›</div><div class="v num">SGD 15,240.18</div><div class="k">0.88% p.a.</div></div>
+        <div><div class="k">Fixed Deposit(s) ›</div><div class="v num">SGD 0.00</div><div class="k">Up to 1.48% p.a.</div></div>
+      </div>
+    </div>
+    <div style="padding:0 14px;display:grid;gap:10px;margin-top:10px">
+      <div class="h-grid">
+        <div class="h-tile"><span class="promo">Promo</span><span class="h-title">Mari Credit Card</span><span class="sub">Get 3% Overseas Cashback</span><span style="color:var(--m-orange);font-weight:600;font-size:12px">Apply Now ›</span></div>
+        <button class="h-tile" data-next aria-label="Mari Invest, start Mari Goals"><span class="promo">New</span><span class="h-title">Mari Invest</span><span class="num" style="font-weight:700;font-size:15px">SGD 0.00</span><span style="color:var(--m-orange);font-weight:600;font-size:12px">Mari Goals ›</span></button>
+      </div>
+      <div class="card" style="padding:12px"><div class="h-acts"><span><i>⇄</i>Transfer</span><span><i>⊞</i>Top Up</span><span><i>☺</i>Refer A Friend</span><span><i>⊕</i>Overseas Transfers</span></div></div>
+      <button class="h-banner" data-next>
+        <span class="tagline">New · Mari Goals</span>
+        <div class="hl">Got your BTO? <em>Start your Key Countdown</em></div>
+        <div class="sub" style="margin-top:4px;max-width:62%">Invest a little every payday toward your renovation, from S$1.</div>
+        <span class="art">${ICON.bto.replace('width="38" height="38"','width="70" height="70"')}</span>
+      </button>
+      <div class="dots"><span class="on"></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+  <div class="tabbar"><span class="on"><i>⌂</i>Home</span><span><i>⇄</i>Transfer</span><span class="scan"><i>▦</i>Scan &amp; Pay</span><span><i>▭</i>Card</span><span><i>◯</i>Me</span></div>`},
+
+{ label:"Goal and amount", group:"Set up", pillars:["s"],
+  title:"What are you saving for, and how much?",
+  why:"Presets fill in a typical amount; BTO renovation is the pilot and opens Key Countdown. Users can also create their own goal. The amount can be dragged, tapped from quick picks or typed.",
+  points:[["Simple","One question per screen, with a progress bar so users always know how far they are."],["Expansion ready","Wedding, car, first child and custom goals run on the same goal engine."]],
+  tip:"Report link: Section 4.2 Goal Engine and Key Countdown; Section 4.6 roadmap.",
+  render:()=>`
+  ${nav("Mari Goals",1)}
+  <div class="body">
+    <div class="goals">${Object.entries(PRESETS).map(([k,p])=>`<button class="gchip" aria-pressed="${S.goal===k}" data-goal="${k}">${p.chip}</button>`).join("")}</div>
+    ${ghead()}
+    ${S.goal==="custom"?`<div class="field"><label class="lbl" for="gname">Name your goal</label><input id="gname" value="${S.gname}" placeholder="e.g. Japan trip with family"></div>`:""}
+    <div class="q">How much do you want to save?</div>
+    <label class="amtbox"><span>S$</span><input id="amt" inputmode="numeric" value="${S.amt.toLocaleString("en-SG")}" style="width:${S.amt.toLocaleString("en-SG").length*0.62+0.3}em" aria-label="Target amount"></label>
+    <div><input class="rng" type="range" id="amtR" min="10000" max="100000" step="1000" value="${Math.max(10000,Math.min(100000,S.amt))}" style="--p:${(Math.max(10000,Math.min(100000,S.amt))-10000)/900}%" aria-label="Target amount slider">
+      <div class="row sub"><span>S$10k</span><span>S$100k</span></div></div>
+    <div class="quick">${[30000,50000,70000].map(v=>`<button data-amt="${v}" aria-pressed="${S.amt===v}">S$${v/1000}k</button>`).join("")}</div>
+    ${info(S.goal==="bto"?"Typical 4 room BTO renovation and furnishing costs S$51,000 to S$61,800. You can change this anytime.":"You can change this anytime.")}
+  </div>
+  <div class="foot"><button class="btn" data-next ${S.goal==="custom"&&!S.gname.trim()?"disabled":""}>Continue</button></div>`},
+
+{ label:"Goal date", group:"Set up", pillars:["s"],
+  title:"When do you need the money?",
+  why:"For a BTO, this is the key collection date on the HDB letter. The app turns the date into months left, which drives both the savings pace and the glide path.",
+  points:[["Simple","A familiar month and year picker, written out in full so nothing is ambiguous."],["Reliable","Dates in the past are blocked, and goals under 18 months stay fully in SavePlus."]],
+  tip:"Report link: Section 4.2 Key Countdown and glide path.",
+  render:()=>{     return `${nav("Mari Goals",2)}
+  <div class="body">
+    ${ghead()}
+    <div class="q">When do you need the money?</div>
+    <div class="datecard">
+      <div class="datehead"><span class="calic">${ICON.cal.replace('width="18" height="18"','width="22" height="22"')}</span><span>${dateLabel()}</span><span style="margin-left:auto;color:var(--m-sub);font-size:20px">›</span></div>
+      <div class="wheel">
+        <div class="col">${[-2,-1,0,1,2].map(o=>{ const k=((S.m-1+o)%12+12)%12; return `<button class="${o===0?"sel":Math.abs(o)===2?"f2":"f1"}" data-month="${k+1}" aria-pressed="${o===0}">${MN[k]}</button>`; }).join("")}</div>
+        <div class="col">${[-2,-1,0,1,2].map(o=>{ const y=S.y+o; return y<NOW_Y||y>2035?`<span></span>`:`<button class="${o===0?"sel":Math.abs(o)===2?"f2":"f1"}" data-year="${y}" aria-pressed="${o===0}">${y}</button>`; }).join("")}</div>
+      </div>
+    </div>
+    ${info(`We'll use this to plan your savings pace. That is <b class="num">${months()} months</b> away${S.goal==="bto"?"; use the key collection date from your HDB letter":""}.`, ICON.cal.replace('width="18" height="18"','width="22" height="22"'))}
+  </div>
+  ${footBC()}`}},
+
+{ label:"Risk style and plan", group:"Plan", pillars:["r","s"],
+  title:"The user picks a style; the date sets the path",
+  why:"MariBank does not recommend a style. The user chooses one of three fixed plans, and the fund mix then follows one published rule based on months left: growth funds early, 100% SavePlus in the final 18 months.",
+  points:[["Reliable","The default plan uses only Excluded Investment Products (SavePlus, Gold, Singapore Equity), so no CKA is needed to start. Income is an optional add on for users who pass the CKA."],["Compliant by design","No personal recommendation is made, so the plan stays a product rule rather than personalised advice."]],
+  tip:"Report link: Section 4.2 glide path; Section 5 Advice vs. Product Rule and CKA.",
+  render:()=>{ const ps=phases(), short=months()<=18, now=ps[0];
+    return `${nav("Mari Goals",3)}
+  <div class="body">
+    ${ghead()}
+    <div class="q">How comfortable are you with risk?</div>
+    <div class="list">${RISK.map((r,k)=>`<button class="rcard" aria-pressed="${S.risk===k}" data-risk="${k}"><span class="ri">${ICON[r.k]}</span><span><b>${r.t}</b><span class="sub">${r.d}</span></span><span class="radio"></span></button>`).join("")}</div>
+    ${info("Investments can go up and down. Lower risk may mean slower growth.")}
+    <div class="card">
+      <div class="row"><span class="lbl">Plan by your goal date</span><span class="sub">${months()} months</span></div>
+      <div class="phase" style="margin-top:10px;grid-template-columns:repeat(${ps.length},1fr)">${ps.map(p=>`<div aria-label="${p.label}: ${100-p.sp}% growth funds">${[["eq","Singapore Equity"],["gold","Gold"],["inc","Income"],["sp","SavePlus"]].map(([k,n])=>p[k]>0?`<span class="c-${k}" style="height:${p[k]}%" title="${n} ${p[k]}%">${p[k]>=12?p[k]+"%":""}</span>`:"").join("")}</div>`).join("")}</div>
+      <div style="display:grid;grid-template-columns:repeat(${ps.length},1fr);gap:6px;margin-top:6px;text-align:center;font-size:10px" class="sub">${ps.map((p,k)=>`<span>${k===0?'<b style="color:var(--m-orange)">Now</b><br>':""}${p.label}${k===ps.length-1?" (locked)":""}</span>`).join("")}</div>
+      <div class="legend" style="margin-top:10px">
+        <span><i class="c-eq"></i>Singapore Equity ${now.eq}%</span><span><i class="c-gold"></i>Gold ${now.gold}%</span>
+        ${S.income&&S.cka?`<span><i class="c-inc"></i>Income ${now.inc}%</span>`:""}<span><i class="c-sp"></i>SavePlus ${now.sp}%</span></div>
+      <div class="note" style="margin-top:6px">Hover or tap a bar to see each fund's share.</div>
+      <div class="note" style="margin-top:8px">MariBank does not recommend a style. The mix follows your goal date and the style you choose.</div>
+      ${short?`<div class="note" style="margin-top:8px">Your goal is within 18 months, so it stays fully in SavePlus whichever style you pick.</div>`:""}
+    </div>
+    <div class="card">
+      <div class="row"><div><div style="font-weight:700">Add Mari Invest Income</div><div class="sub">Monthly payouts. A Specified Investment Product.</div></div>
+        <button class="switch" role="switch" aria-checked="${S.income&&S.cka}" id="incSw" aria-label="Add Mari Invest Income" ${S.cka?"":"disabled"}></button></div>
+      ${S.cka?`<div class="note" style="margin-top:6px">CKA passed. Optional, and outside the default plan.</div>`:`<div class="row" style="margin-top:8px"><span class="note">Pass the Customer Knowledge Assessment to add it.</span><button class="link" id="takeCka" style="font-size:12px">Take CKA ›</button></div>`}
+    </div>
+  </div>
+  ${footBC()}`}},
+
+{ label:"Save together", group:"Plan", pillars:["r","s"],
+  title:"Invite a partner, or save on your own",
+  why:"Couples share one goal, but each partner keeps their own Mari Invest holdings. The invite goes to a verified MariBank account; if the partner is new to MariBank, they open an account to join.",
+  points:[["Reliable","Separate ownership protects each partner if plans change. Only progress is shared."],["Brings in new customers","A partner without MariBank must open an account to join, so each couple can add a customer."]],
+  tip:"Report link: Section 4.2 Shared Goal; Section 5 security; Section 6 customer acquisition.",
+  render:()=>`
+  ${nav("Mari Goals",4)}
+  <div class="body">
+    ${ghead()}
+    <div class="q">Who's saving for this goal?</div>
+    <div class="card"><div class="row"><div><div style="font-weight:700">Save with a partner</div><div class="sub">Share progress, keep your own money</div></div>
+      <button class="switch" role="switch" aria-checked="${S.partner}" id="partnerSw" aria-label="Save with a partner"></button></div></div>
+    ${S.partner?`
+    <div class="card">
+      <div class="lbl">Partner</div>
+      <div class="row" style="margin-top:8px"><div class="row l"><div class="avatar jas">JL</div><div><div style="font-weight:600">Jasmine Lim</div><div class="sub">MariBank account ending 4488</div></div></div><span class="pill">Invite sent</span></div>
+      <div class="note" style="margin-top:10px">Jasmine accepts in her own app with Singpass, picks her own risk style and sets her own Autopilot.</div>
+    </div>
+    <div class="card list"><div class="lbl">What you share</div>
+      <div class="row"><span>Goal, date and total progress</span><span class="pill">Shared</span></div>
+      <div class="row"><span>Each person's balance</span><span class="pill">Shared</span></div>
+      <div class="row"><span>Ownership and withdrawals</span><span class="pill grey">Yours only</span></div></div>`:
+    info("This goal will be yours alone. You can invite someone later.")}
+  </div>
+  ${footBC()}`},
+
+{ label:"Payday Autopilot", group:"Plan", pillars:["s","r"],
+  title:"Goal linked Auto Invest, set as a share of pay",
+  why:"MariBank's existing Auto Invest buys a fixed amount into one fund. Payday Autopilot builds on it: it is triggered by the salary credit, set as a percentage of pay, tied to the goal's target and date, and follows the plan's fund mix.",
+  points:[["Simple","Users think in \"10% of my pay\". The app converts it and shows the share needed to stay on track."],["Reliable","Salary is read from SALA tagged credits in Mari Savings, or entered manually. Pause or change anytime, no fees."]],
+  tip:"Report link: Section 3.3 Gap 3; Section 4.2 Payday Autopilot.",
+  render:()=>{ const need=neededPct(), proj=projected(), on=proj>=S.amt;
+    return `${nav("Mari Goals",5)}
+  <div class="body">
+    ${ghead()}
+    <div class="q">How much of each pay should go in?</div>
+    <div class="card list">
+      <div class="lbl">Your pay</div>
+      <div class="quick" style="grid-template-columns:1fr 1fr">
+        <button data-paysrc="detected" aria-pressed="${S.paysrc==="detected"}">Use salary credits</button>
+        <button data-paysrc="manual" aria-pressed="${S.paysrc==="manual"}">Enter it myself</button>
+      </div>
+      ${S.paysrc==="detected"
+        ?`<div class="row"><span class="sub">Salary credit (SALA), LOGIX SG PTE LTD</span><b class="num">${fmt(4160)} on the 25th</b></div>`
+        :`<div class="row" style="gap:8px;align-items:flex-end"><div class="field" style="flex:2"><label class="lbl" for="pay">Take home pay (S$)</label><input id="pay" type="number" min="500" step="50" value="${S.net}"></div>
+          <div class="field" style="flex:1"><label class="lbl" for="payday">Payday</label><input id="payday" type="number" min="1" max="31" value="${S.payday}"></div></div>
+          <div class="note">Salary paid elsewhere? Set up a standing transfer into Mari Savings for payday.</div>`}
+    </div>
+    <div class="card">
+      <div class="row" style="align-items:baseline"><span class="big num">${S.pct}%</span><span class="num" style="font-weight:700;font-size:16px">${fmt(ryanAmt())} a month</span></div>
+      <div class="slider"><span class="marker" style="left:${(need-1)/29*100}%">Needed ${need}%</span>
+        <input class="rng" type="range" id="pct" min="1" max="30" step="1" value="${S.pct}" style="--p:${(S.pct-1)/29*100}%" aria-label="Percentage of take home pay"></div>
+      <div class="row sub"><span>1%</span><span>30%</span></div>
+    </div>
+    <div class="card"><div class="field"><label class="lbl" for="start">Move from savings to start (optional)</label><input id="start" type="number" min="0" step="500" value="${S.start}"></div>
+      <div class="note" style="margin-top:6px">You have ${fmt(15240)} in Mari Savings. Keep an emergency buffer.</div></div>
+    ${S.partner?`<div class="card"><div class="row"><div class="row l"><div class="avatar jas">JL</div><div><div style="font-weight:600">Jasmine</div><div class="sub">${JAS_PCT}% of pay · set by Jasmine</div></div></div><b class="num">${fmt(jasAmt())}</b></div></div>`:""}
+    <div class="card"><div class="row"><span class="lbl">Projected by ${shortDate()}</span><span class="pill ${on?"":"grey"}">${on?"On track":"Behind"}</span></div>
+      <div class="big num" style="margin-top:4px">${fmt(proj)}</div><div class="sub">Goal ${fmt(S.amt)}. Illustration only, returns are not guaranteed.</div></div>
+  </div>
+  ${footBC()}`}},
+
+{ label:"Cashback Boost", group:"Plan", pillars:["w","r"],
+  title:"An optional top up from cashback they already earn",
+  why:"Today Mari Credit Card cashback only offsets the card bill. Cashback Boost routes it into the goal instead, with the user's consent. It can be skipped.",
+  points:[["Rewarding","MariBank's instant cashback now builds toward a real milestone."],["Reliable","No \"spend more to invest more\" nudges. Shopee Coins follow different rules and stay in Shopee for the pilot."]],
+  tip:"Report link: Section 3.3 Gap 5; Section 4.2 Cashback Boost; Section 5 ethical design.",
+  render:()=>`
+  ${nav("Mari Goals",6)}
+  <div class="body">
+    ${ghead()}
+    <div class="q">Boost your goal with cashback?</div>
+    <div class="card"><div class="row"><div><div style="font-weight:700">Send card cashback to my goal</div><div class="sub">Mari Credit Card · 1.5% on eligible spend</div></div>
+      <button class="switch" role="switch" aria-checked="${S.boost}" id="boostSw" aria-label="Cashback Boost"></button></div></div>
+    <div class="card"><div class="lbl">Based on your last 3 months</div>
+      <div class="big num" style="margin-top:4px">${S.boost?"+S$18":"S$0"}<span class="sub" style="font-family:var(--ui);font-weight:500"> a month</span></div>
+      <div class="sub">${S.boost?"Invested on the 1st of each month using your plan.":"Cashback keeps offsetting your card bill."}</div></div>
+    <div class="card list"><div class="lbl">Recent cashback</div>
+      ${[["Hardware store, Tampines","S$4.20"],["FairPrice","S$1.85"],["Transit","S$0.96"],["Shopee checkout","Shopee Coins"]].map(([a,b])=>`<div class="row"><span>${a}</span><span class="num ${b==="Shopee Coins"?"sub":""}" style="font-weight:600">${b}</span></div>`).join("")}</div>
+    ${info("We will never suggest spending more to grow your goal.")}
+  </div>
+  <div class="foot"><div class="two"><button class="btn ghost" data-back>Back</button><button class="btn" data-next>Continue</button></div><button class="btn text" data-skip>Skip for now</button></div>`},
+
+{ label:"Review and start", group:"Confirm", pillars:["r","s"],
+  title:"Everything on one page before any money moves",
+  why:"A plain summary of the goal plan and the suggested monthly amount, calculated from the target, date and starting savings. Below it, the key risks are separate statements to tick. Start stays disabled until every box is ticked, and nothing is pre ticked.",
+  points:[["Reliable","Key facts up front: not SDIC insured, can lose value, and the mix follows a fixed rule by goal date and the chosen style rather than advice."],["No dark patterns","No timers or pressure, and leaving is as easy as starting."]],
+  tip:"Report link: Section 5 informed consent and responsible design.",
+  render:()=>{ const all=S.cA&&S.cB&&S.cC, sug=Math.ceil(neededMonthly()/10)*10;
+    return `${nav("Mari Goals",7)}
+  <div class="body">
+    <div><div class="ttlbig">You're almost there!</div><div class="sub" style="font-size:14px;margin-top:2px">Here's your goal plan.</div></div>
+    <div class="sumcard">
+      <div class="ghead" style="margin-bottom:6px"><div class="gic" style="width:64px;height:64px">${ICON[S.goal].replace(/width="\d+" height="\d+"/,'width="44" height="44"')}</div><div class="gname" style="font-size:17px">${S.gname||"My goal"}</div></div>
+      <div class="sumrow">${ICON.target}<span class="k">Target amount</span><span class="v num">${fmt(S.amt)}</span></div>
+      <div class="sumrow">${ICON.cal}<span class="k">Target date</span><span class="v">${shortDate()}</span></div>
+      <div class="sumrow">${ICON.chart}<span class="k">Risk style</span><span class="v">${RISK[S.risk].t.replace("Keep it steady","Steady")}</span></div>
+      ${S.partner?`<div class="sumrow">${ICON.people}<span class="k">Saving with</span><span class="v">Jasmine Lim</span></div>`:""}
+    </div>
+    <div class="suggest">
+      <div class="top"><div class="row l" style="gap:10px">${ICON.coins}<span style="font-weight:500;color:var(--m-grey)">Suggested monthly amount${S.partner?" (together)":""}</span><span class="info" style="padding:0;background:none"><i style="width:16px;height:16px;font-size:9px">i</i></span></div>
+        <div class="amt">${fmt(sug)}<small>/month</small></div></div>
+      <div class="bot">${ICON.sync}<span style="flex:1">Turn on Payday Autopilot<span class="sub" style="display:block">${S.pct}% of pay, ${fmt(ryanAmt())} a month</span></span>
+        <button class="switch" role="switch" aria-checked="${S.auto}" id="autoSw" aria-label="Payday Autopilot"></button></div>
+    </div>
+    <div class="grow">${ICON.sprout}<span>You're building your ${S.goal==="bto"?"home fund":"goal"} step by step.</span></div>
+    <div class="sumcard list">
+      <div class="lbl">Before you start</div>
+      <label class="check"><input type="checkbox" id="cA" ${S.cA?"checked":""}><span>Mari Invest is <b>not a deposit</b> and is <b>not insured by SDIC</b>.</span></label>
+      <label class="check"><input type="checkbox" id="cB" ${S.cB?"checked":""}><span>My investment <b>can fall in value</b> and I may get back less than I put in.</span></label>
+      <label class="check"><input type="checkbox" id="cC" ${S.cC?"checked":""}><span>The fund mix follows a <b>fixed rule by goal date</b> and my chosen style. It is not advice for my situation.</span></label>
+    </div>
+  </div>
+  <div class="foot"><button class="btn" id="confirm" ${all?"":"disabled"}>Start my goal</button></div>`}},
+
+{ label:"Key Countdown", group:"After set up", pillars:["s","r","w"], grey:true,
+  title:"One shared view to the day they get their keys",
+  why:"After starting, the goal's home shows progress against the target and date. For BTO goals this is the Key Countdown. Each balance stays in its owner's account.",
+  points:[["Simple","One number, one date, one status. Funds are one tap away."],["Reliable","Progress check in: if contributions fall short, it says \"Behind\" and shows the share of pay needed. No streaks or confetti."],["Rewarding","Progress toward a real milestone."]],
+  tip:"Report link: Section 3.3 Gaps 4 and 6; Section 4.2 Key Countdown and Progress Check ins.",
+  render:()=>{ const tot=startTot(), pct=Math.min(100,tot/S.amt*100), rp=S.start/S.amt*100, jp=(S.partner?JAS_START:0)/S.amt*100, proj=projected(), on=proj>=S.amt, now=phases()[0];
+    return `<div class="hero">${sbar()}<div class="nav"><button class="back" data-back aria-label="Back" style="color:#fff">‹</button><div class="ttl" style="color:#fff">${S.goal==="bto"?"Key Countdown":"Mari Goals"}</div><span></span></div>
+    <div style="padding:0 18px 20px">
+      <div style="opacity:.9;font-size:12px">${S.gname||"My goal"}</div>
+      <div class="big" style="color:#fff;font-size:34px">${fmt(tot)}</div>
+      <div style="opacity:.9" class="num">of ${fmt(S.amt)} · ${shortDate()}</div>
+    </div></div>
+  <div class="body" style="padding-top:12px">
+    ${S.ended?"":`<div class="toast">Goal started. First Autopilot buy on ${S.payday} ${S.payday>25?"Oct":"Nov"}.</div>`}
+    <div class="card">
+      <div class="row"><span style="font-weight:700">${months()} months to go</span><span class="pill ${on?"":"grey"}">${on?"On track":"Behind"}</span></div>
+      <div class="bar" style="margin-top:12px"><span style="width:${rp}%;background:var(--m-orange)"></span><span style="width:${jp}%;background:var(--m-grey)"></span></div>
+      <div class="row sub" style="margin-top:6px"><span class="num">${pct.toFixed(0)}% saved</span><span class="num">Projected ${fmt(proj)}</span></div>
+      ${on?"":`<div class="note" style="margin-top:8px">To get back on track, raise Autopilot to about ${neededPct()}% of pay.</div>`}
+    </div>
+    <div class="card list"><div class="lbl">Who owns what</div>
+      <div class="row"><div class="row l"><div class="avatar ryan">RT</div><span>Ryan (you)</span></div><b class="num">${fmt(S.start)}</b></div>
+      ${S.partner?`<div class="row"><div class="row l"><div class="avatar jas">JL</div><span>Jasmine</span></div><b class="num">${fmt(JAS_START)}</b></div>`:""}</div>
+    <div class="card"><div class="row"><div><div class="lbl">Current mix · ${RISK[S.risk].t}</div><div style="font-weight:600">${100-now.sp}% growth, steps down by date</div></div><button class="link" data-goto="3">View ›</button></div>
+      <div class="bar" style="margin-top:10px"><span class="c-eq" style="width:${now.eq}%"></span><span class="c-gold" style="width:${now.gold}%"></span><span class="c-inc" style="width:${now.inc}%"></span><span class="c-sp" style="width:${now.sp}%"></span></div></div>
+    <div class="card list">
+      <div class="row"><span>Payday Autopilot</span><span class="num" style="font-weight:600">${S.auto&&!S.paused?fmt(ryanAmt())+" on day "+S.payday:"Off"}</span></div>
+      <div class="row"><span>Cashback Boost</span><span style="font-weight:600">${S.boost?"On":"Off"}</span></div></div>
+    <div class="card"><div class="row"><div><div style="font-weight:600">Manage goal</div><div class="sub">Pause, change or end this goal</div></div><button class="link" data-goto="9">Open ›</button></div></div>
+  </div>`}},
+
+{ label:"Manage or end goal", group:"After set up", pillars:["r","s"],
+  title:"Life changes, so leaving is as easy as starting",
+  why:"Either partner can pause Autopilot, change the goal, or end it. Ending never forces a sale: the user chooses to keep the holdings invested or sell to Mari Savings.",
+  points:[["Reliable","Each partner already owns their holdings, so ending a shared goal needs no splitting."],["No dark patterns","No guilt messages, hidden steps or exit fee. Keep and End have equal weight."]],
+  tip:"Report link: Section 5 consumer protection (separate ownership if the relationship ends).",
+  render:()=>{
+    if(S.ended) return `${nav("Goal ended")}
+  <div class="body">
+    <div class="card"><div style="font-weight:700;font-size:15px">${S.gname||"Your goal"} has ended</div>
+      <div class="sub" style="margin-top:6px">${S.endChoice==="sell"?"Your units are being sold. SavePlus arrives in Mari Savings instantly; other funds usually take a few business days.":"Your holdings stay invested in your Mari Invest account. Autopilot has stopped."}</div></div>
+    ${S.partner?`<div class="card"><div class="row l"><div class="avatar jas">JL</div><div class="sub">Jasmine has been told the shared goal ended. Her own holdings are unchanged and she decides what to do with them.</div></div></div>`:""}
+    ${info("You can start a new goal at any time.")}
+  </div>
+  <div class="foot"><button class="btn" data-goto="0">Back to Home</button></div>`;
+    return `${nav("Manage goal")}
+  <div class="body">
+    <div class="card"><div class="row"><div><div style="font-weight:700">Pause Autopilot</div><div class="sub">Skip buys for up to 6 months. Money stays invested.</div></div>
+      <button class="switch" role="switch" aria-checked="${S.paused}" id="pauseSw" aria-label="Pause Autopilot"></button></div>
+      ${S.paused?`<div class="note" style="margin-top:8px">Paused. Your status will show how far behind this puts you.</div>`:""}</div>
+    <div class="card"><div class="row"><div><div style="font-weight:700">Change amount or date</div><div class="sub">For example, if your key date moves</div></div><button class="link" data-goto="1">Edit ›</button></div></div>
+    <div class="card list">
+      <div style="font-weight:700">End this goal</div>
+      <div class="sub">Why are you ending it? (optional)</div>
+      <div class="quick" style="grid-template-columns:1fr 1fr">${["Plans changed","Need the money","Relationship changed","Other"].map(r=>`<button aria-pressed="${S.reason===r}" data-reason="${r}" style="font-weight:500;font-size:12px">${r}</button>`).join("")}</div>
+      <div class="lbl" style="margin-top:4px">What happens to your ${fmt(S.start)}</div>
+      <div class="list">
+        <button class="rcard" style="grid-template-columns:1fr 22px" aria-pressed="${S.endChoice==="keep"}" data-end="keep"><span><b>Keep it invested</b><span class="sub">Stays in your Mari Invest funds. Only Autopilot stops.</span></span><span class="radio"></span></button>
+        <button class="rcard" style="grid-template-columns:1fr 22px" aria-pressed="${S.endChoice==="sell"}" data-end="sell"><span><b>Sell to Mari Savings</b><span class="sub">SavePlus is instant; other funds take a few business days.</span></span><span class="radio"></span></button>
+      </div>
+      ${S.endChoice==="sell"?`<div class="note">You get the market value on the day you sell, which may be less than you put in. No fees.</div>`:""}
+      ${S.partner?`<div class="note">${S.reason==="Relationship changed"?"Your balances were always separate, so nothing needs to be split. ":""}Jasmine keeps her own holdings and decides separately.</div>`:""}
+    </div>
+  </div>
+  <div class="foot"><div class="two" style="grid-template-columns:1fr 1fr"><button class="btn ghost" data-back>Keep my goal</button><button class="btn" id="endGoal" ${S.endChoice?"":"disabled"}>End with Singpass</button></div></div>`}}
+];
+
+let lastI = -1;
+function go(i){ if(i!==S.i) S.hist.push(S.i); S.i=i; render(); }
+function back(){ S.i = S.hist.length ? S.hist.pop() : Math.max(0,S.i-1); render(); }
+function render(){
+  const groups={}; SCREENS.forEach((sc,i)=>{(groups[sc.group]=groups[sc.group]||[]).push(i)});
+  document.getElementById("picker").innerHTML = Object.entries(groups).map(([g,ids])=>`<div class="ph">${g}</div>`+ids.map(i=>`<button role="tab" aria-selected="${S.i===i}" data-goto="${i}"><span class="n">${i+1}</span><span class="t">${SCREENS[i].label}</span></button>`).join("")).join("");
+  const sc=SCREENS[S.i], scr=document.getElementById("screen");
+  const oldBody = scr.querySelector(".body"), keepY = (lastI===S.i && oldBody) ? oldBody.scrollTop : 0;
+  scr.className = "screen" + (sc.grey?" grey":"");
+  scr.innerHTML = sc.render();
+  const nb = scr.querySelector(".body"); if(nb) nb.scrollTop = keepY;
+  lastI = S.i;
+  document.getElementById("notes").innerHTML = `<div class="chips">${sc.pillars.map(p=>`<span class="chip">${PN[p]}</span>`).join("")}</div>
+    <h2>${sc.title}</h2><p>${sc.why}</p>
+    <dl>${sc.points.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join("")}</dl>`;
+}
+function keep(id){ const el=document.getElementById(id); if(!el) return; el.focus(); try{ const n=el.value.length; if(el.setSelectionRange && el.type!=="number" && el.type!=="range") el.setSelectionRange(n,n);}catch(e){} }
+function fixDate(){ if(S.y*12+S.m <= NOW_Y*12+NOW_M){ S.y=NOW_Y; S.m=NOW_M+1; if(S.m>12){S.m=1;S.y++;} } }
+
+document.addEventListener("click", e=>{
+  const t=e.target.closest("button"); if(!t || t.disabled) return;
+  const d=t.dataset;
+  if(t.hasAttribute("data-back")) return back();
+  if(t.hasAttribute("data-next")){ if(S.i===0){ S.ended=false; S.endChoice=null; S.reason=null; } return go(S.i+1); }
+  if(t.hasAttribute("data-skip")){ S.boost=false; return go(S.i+1); }
+  if(d.goto!==undefined) return go(+d.goto);
+  if(d.goal){ const p=PRESETS[d.goal]; Object.assign(S,{goal:d.goal,gname:p.name,amt:p.amt,y:p.y,m:p.m,partner:p.partner}); return render(); }
+  if(d.amt){ S.amt=+d.amt; return render(); }
+  if(d.month){ S.m=+d.month; fixDate(); return render(); }
+  if(d.year){ S.y=+d.year; fixDate(); return render(); }
+  if(d.risk){ S.risk=+d.risk; return render(); }
+  if(d.paysrc){ S.paysrc=d.paysrc; if(S.paysrc==="detected"){ S.net=4160; S.payday=25; } return render(); }
+  if(d.reason){ S.reason = S.reason===d.reason?null:d.reason; return render(); }
+  if(d.end){ S.endChoice=d.end; return render(); }
+  const id=t.id;
+  if(id==="takeCka"){ S.cka=true; return render(); }
+  if(id==="incSw"){ S.income=!S.income; return render(); }
+  if(id==="partnerSw"){ S.partner=!S.partner; return render(); }
+  if(id==="boostSw"){ S.boost=!S.boost; return render(); }
+  if(id==="autoSw"){ S.auto=!S.auto; return render(); }
+  if(id==="pauseSw"){ S.paused=!S.paused; return render(); }
+  if(id==="confirm"){ S.hist=[0]; S.i=8; return render(); }
+  if(id==="endGoal"){ S.ended=true; return render(); }
+});
+document.addEventListener("input", e=>{
+  const id=e.target.id, v=e.target.value;
+  if(id==="amtR"){ S.amt=+v; render(); keep("amtR"); }
+  if(id==="amt"){ const n=+v.replace(/[^0-9]/g,""); if(n){ S.amt=Math.min(1000000,n); const r=document.getElementById("amtR"); if(r) r.value=S.amt; document.querySelectorAll("[data-amt]").forEach(b=>b.setAttribute("aria-pressed", +b.dataset.amt===S.amt)); } }
+  if(id==="pct"){ S.pct=+v; render(); keep("pct"); }
+  if(id==="pay"){ S.net=Math.max(500,+v||500); render(); keep("pay"); }
+  if(id==="payday"){ S.payday=Math.min(31,Math.max(1,+v||1)); render(); keep("payday"); }
+  if(id==="start"){ S.start=Math.max(0,+v||0); render(); keep("start"); }
+  if(id==="gname"){ S.gname=v; const b=document.querySelector(".foot [data-next]"); if(b) b.disabled=!v.trim(); }
+});
+document.addEventListener("change", e=>{
+  const id=e.target.id;
+  if(id==="amt"){ render(); }
+  if(["cA","cB","cC"].includes(id)){ S[id]=e.target.checked; const b=document.getElementById("confirm"); if(b) b.disabled=!(S.cA&&S.cB&&S.cC); }
+});
+window.__mock = {go, S, render};
+render();
+})();
+</script>
+
+</body></html>
